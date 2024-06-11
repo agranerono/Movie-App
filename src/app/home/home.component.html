@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <span>Movie App</span>
+  <span class="spacer"></span>
+  <button mat-icon-button aria-label="Switch to card view" (click)="viewMode = 'cards'" [disabled]="viewMode === 'cards'">
+    <mat-icon>view_module</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Switch to table view" (click)="viewMode = 'table'" [disabled]="viewMode === 'table'">
+    <mat-icon>view_list</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="home-container" *ngIf="isLoading">
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="home-container" *ngIf="!isLoading">
+  <div *ngIf="viewMode === 'cards'" class="cards-container" [@listAnimation]>
+    <div *ngFor="let movie of movies" @listAnimation>
+      <app-card [movie]="movie" (selectMovie)="goToDetail($event)"></app-card>
+    </div>
+  </div>
+  <div *ngIf="viewMode === 'table'" class="table-container" [@listAnimation]>
+    <app-grid [dataSource]="dataSource" (rowClick)="goToDetail($event)"></app-grid>
+  </div>
+</div>

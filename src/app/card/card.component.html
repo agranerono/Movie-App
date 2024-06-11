@@ -1,0 +1,12 @@
+<mat-card class="movie-card" (click)="onCardClick()">
+  <mat-card-header>
+    <mat-card-title>{{ movie.title }}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" alt="{{ movie.title }}">
+  <mat-card-content>
+    <p>{{ movie.overview }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="onCardClick()">Learn More</button>
+  </mat-card-actions>
+</mat-card>

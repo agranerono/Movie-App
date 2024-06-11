@@ -1,0 +1,55 @@
+<div *ngIf="!movie" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="detail-container" *ngIf="movie">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ movie.title }}</mat-card-title>
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </mat-card-header>
+    <div class="detail-content">
+      <div class="image-container">
+        <img mat-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" alt="{{ movie.title }}">
+      </div>
+      <div class="info-container">
+        <mat-card-content>
+          <p>{{ movie.overview }}</p>
+          <button mat-button (click)="toggleDetails()">Show All Details</button>
+          <mat-accordion *ngIf="showAllDetails">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Additional Info</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div>
+                <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                <p><strong>Runtime:</strong> {{ movie.runtime }} minutes</p>
+                <p><strong>Rating:</strong> {{ movie.vote_average }}</p>
+                <p><strong>Budget:</strong> {{ movie.additional_info.budget }}</p>
+                <p><strong>Revenue:</strong> {{ movie.additional_info.revenue }}</p>
+                <p><strong>Genres:</strong> {{ movie.additional_info.genres }}</p>
+                <p><strong>Production Companies:</strong> {{ movie.additional_info.production_companies }}</p>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Cast & Crew</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div>
+                <p><strong>Director:</strong> {{ director }}</p>
+                <p><strong>Cast:</strong></p>
+                <ul>
+                  <li *ngFor="let castMember of cast">
+                    {{ castMember.name }} as {{ castMember.character }}
+                  </li>
+                </ul>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+      </div>
+    </div>
+  </mat-card>
+</div>
